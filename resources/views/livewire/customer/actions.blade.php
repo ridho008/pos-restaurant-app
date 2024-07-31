@@ -7,7 +7,7 @@
 
     <div class="modal" role="dialog">
         <div class="modal-box">
-            <h3 class="font-bold text-lg">Form Input Menus</h3>
+            <h3 class="font-bold text-lg">Form Input Customer</h3>
             <div class="py-4 space-y-2">
                 <form wire:submit="save">
                     <div class="form-control">

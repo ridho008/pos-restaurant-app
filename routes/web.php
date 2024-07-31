@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/customer', \App\Livewire\Customer\Index::class)->name('customer.index');
     
     // Transaction
+    Route::get('/transactions', \App\Livewire\Transaction\Index::class)->name('transaction.index');
     Route::get('/transaction/create', \App\Livewire\Transaction\Actions::class)->name('transaction.create');
 
 

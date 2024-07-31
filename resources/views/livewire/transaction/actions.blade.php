@@ -31,47 +31,58 @@
             </div>
         </div>
         <div class="card m-3 bg-slate-200">
-            <div class="card-body space-y-4">
-                <h3 class="card-title">Detail Transaction</h3>
-                @json($items)
-                <div class="table-wrapper">
-                    <table class="table">
-                        <thead>
-                            <th>Name Menu</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($items as $key => $val)
-                                <tr>
-                                    <td>{{ $key }}</td>
-                                    <td>{{ $val['qty'] }}</td>
-                                    <td>{{ Number::format($val['price']) }}</td>
-                                    <td>
-                                        <button class="btn btn-xs"
-                                            wire:click="removeItemMenu(`{{ $key }}`)">-</button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <select name="" class="select select-bordered" id="" wire:model="customer_id">
-                    <option value="">Choose Customers</option>
-                    @foreach ($customers as $id => $name)
-                        <option value="{{ $id }}">{{ $name }}</option>
-                    @endforeach
-                </select>
-                <textarea name="" id="" class="textarea textarea-bordered" placeholder="Makan ditempat/Bungkus"
-                    wire:model="desc" cols="30" rows="3"></textarea>
-                <div class="card-actions justify-between">
-                    <div class="flex flex-col">
-                        <div class="text-xs">Total Price</div>
-                        <div class="card-title">Rp.0</div>
+            <form wire:submit="saveMenu">
+                <div class="card-body space-y-4">
+                    <h3 class="card-title">Detail Transaction</h3>
+                    {{-- @json($items) --}}
+                    <div @class([
+                        'table-wrapper' . 'border-error' => $errors->first('form.items'),
+                    ])>
+                        <table class="table">
+                            <thead>
+                                <th>Name Menu</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($items as $key => $val)
+                                    <tr>
+                                        <td>{{ $key }}</td>
+                                        <td>{{ $val['qty'] }}</td>
+                                        <td>{{ Number::format($val['price']) }}</td>
+                                        <td>
+                                            <button class="btn btn-xs"
+                                                wire:click="removeItemMenu(`{{ $key }}`)">-</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <button class="btn btn-primary">Save</button>
+                    <select @class([
+                        'select select-bordered',
+                        'input-error' => $errors->first('form.customer_id'),
+                    ]) wire:model="form.customer_id">
+                        <option value="">Choose Customers</option>
+                        @foreach ($customers as $id => $name)
+                            <option value="{{ $id }}">{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    <textarea @class([
+                        'textarea textarea-bordered',
+                        'input-error' => $errors->first('form.desc'),
+                    ]) placeholder="Makan ditempat/Bungkus" wire:model="form.desc" cols="30"
+                        rows="3"></textarea>
+                    <div class="card-actions justify-between">
+                        <div class="flex flex-col">
+                            {{-- @json($this->getTotalPrice()) --}}
+                            <div class="text-xs">Total Price</div>
+                            <div @class(['card-title', 'text-error' => $errors->first('form.items')])>Rp. {{ Number::format($this->getTotalPrice()) }}</div>
+                        </div>
+                        <button class="btn btn-primary">Save</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

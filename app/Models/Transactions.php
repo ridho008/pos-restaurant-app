@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Transactions extends Model
 {
     use HasFactory;
+
+    protected $table = 'transactions';
+
     protected $fillable = ['customer_id', 'items', 'desc', 'price', 'done'];
 
     protected function casts() {

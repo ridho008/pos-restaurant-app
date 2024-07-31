@@ -30,7 +30,7 @@ class TransactionForm extends Form
             'done' => 'required',
         ]);
 
-        Transactions::created($validate);
+        Transactions::create($validate);
         $this->reset();
     }
 

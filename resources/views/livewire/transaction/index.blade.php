@@ -1,0 +1,3 @@
+<div>
+    {{ $transactions }}
+</div>
